@@ -1,11 +1,5 @@
-
-from flask import Flask, jsonify, render_template, request
-import webbrowser
-import time
-from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, render_template, request, jsonify
 from firebase import firebase
-import time
 
 app = Flask(__name__)
 
