@@ -1,23 +1,53 @@
-{% extends 'base.html' %}
-
-{% block head %}
-<title> Home </title>
-{% endblock %}
-
+{% extends "base.html" %}
 {% block body %}
+<script type="text/javascript">
+    setInterval(update_tempRoom1,1000);
+    function update_tempRoom1() {
+        $.getJSON($SCRIPT_ROOT + '/_room1',
+
+      function(data) {
+        $('#result').text(data.result);
+      });
+
+    };
+
+    setInterval(update_tempRoom2,1000);
+    function update_tempRoom2() {
+        $.getJSON($SCRIPT_ROOT + '/_room2',
+
+      function(data) {
+        $('#result2').text(data.result2);
+      });
+
+    };
+</script>
+
+<body onload="update_tempRoom1();update_tempRoom2();">
+<h1>Dynamic Update</h1>
+<p>
+    <span id="result">?</span>
+<script>
+    document.getElementById("result").innerHTML;
+</script>
+</p>
+<p>
+      <span id="result2">?</span>
+<script>
+    document.getElementById("result2").innerHTML;
+</script>
+</p>
+
 <div>
     <form action="/" method="POST">
-        <label for="tempRoom1">Temperature Room1</label>
-        <input type="number" name="tempRoom1" id="tempRoom1" value={{ data1 }}></input>
         <input type="number" name="content" id="content">
         <input type="submit" value="Set temperature">
     </form><br>
 
-    <form action="/room2" method="POST">
-        <label for="tempRoom2">Temperature Room2</label>
-        <input type="number" name="tempRoom2" id="tempRoom2" value={{ data2 }}></input>
+    <form action="/setRoom2" method="POST">
         <input type="number" name="content2" id="content2">
         <input type="submit" value="Set temperature">
     </form>
 </div>
+
+</body>
 {% endblock %}
